@@ -22,13 +22,11 @@ public class CarServiseImpl implements CarService{
 
     @Override
     public List<Car> listCars() {
-        cars.forEach(System.out::println);
         return cars;
     }
 
     @Override
     public List<Car> getCarByQuantity(int quantity) {
-        cars.stream().limit(quantity).forEach(System.out::println);
         return cars.subList(0, quantity);
     }
 }
