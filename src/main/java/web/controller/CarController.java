@@ -1,24 +1,43 @@
 package web.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.List;
+import web.service.CarService;
 
 @Controller
 public class CarController {
+	private final CarService carService;
 
-	@GetMapping(value = "/cars.html")
-	public String printWelcome(ModelMap model) {
-		List<String> messages = new ArrayList<>();
-		messages.add("Cars!");
-		messages.add("I'm Spring MVC application");
-		messages.add("5.2.0 version by sep'19 ");
-		model.addAttribute("messages", messages);
-		return "index";
+	@Autowired
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
+	@GetMapping("/cars")
+	public String index(HttpServletRequest request) {
+		String count = request.getParameter("count");
+		System.out.println(count);
+		if (count == null) {
+			System.out.println(carService.listCars().toString());
+
+		} else {
+			int icount = Integer.parseInt(count);
+			if (icount >= 5) {
+				System.out.println(carService.listCars().toString());
+			} else {
+				System.out.println(carService.getCarByQuantity(icount).toString());
+			}
+		}
+		return "cars";
 	}
+//    @GetMapping("/cars{count}")
+//	public String show(@PathVariable("count") int count, Model model) {
+//		model.addAttribute("cars", carService.getCarByQuantity(count));
+//		return "cars";
+//	}
 	
 }
