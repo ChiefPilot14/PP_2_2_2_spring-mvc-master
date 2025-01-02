@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public class CarServiseImpl implements CarService{
-    private List<Car> cars;
+    private final List<Car> cars;
 
     {
         cars = new ArrayList<>();
@@ -22,7 +22,7 @@ public class CarServiseImpl implements CarService{
 
     @Override
     public List<Car> listCars() {
-        cars.stream().forEach(System.out::println);
+        cars.forEach(System.out::println);
         return cars;
     }
 
