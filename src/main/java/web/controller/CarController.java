@@ -20,7 +20,7 @@ public class CarController {
     }
 
     @GetMapping("/cars")
-    public String index(HttpServletRequest request, Model model) {
+    public String showCars(HttpServletRequest request, Model model) {
         int count = parseCount(request);
         List<Car> cars = carService.getCars(count);
 
